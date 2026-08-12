@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './App.css';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
@@ -24,24 +24,64 @@ function App() {
   const [isMockMode, setIsMockMode] = useState(false);
   const [approvalModalIncident, setApprovalModalIncident] = useState(null);
 
+  const historyRef = useRef([]);
+
   // Fetch telemetry and system state
   const refreshSystemData = useCallback(async () => {
     try {
       const [healthRes, metricsRes, incidentsRes, logsRes] = await Promise.all([
-        api.getHealth(),
-        api.getMetrics(),
-        api.getIncidents(),
-        api.getLogs(),
+        api.getHealth().catch(() => ({ data: null })),
+        api.getMetrics().catch(() => ({ data: null })),
+        api.getIncidents().catch(() => ({ data: null })),
+        api.getLogs().catch(() => ({ data: null })),
       ]);
 
-      setHealth(healthRes.data);
-      setMetrics(metricsRes.data);
-      setLogs(logsRes.data?.logs || []);
+      if (healthRes && healthRes.data) {
+        setHealth(healthRes.data);
+      }
+
+      if (metricsRes && metricsRes.data) {
+        const rawM = metricsRes.data;
+        const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        const cpuVal = Math.round(rawM.cpu_percent ?? rawM.cpu ?? 32);
+        const memVal = Math.round(rawM.memory_percent ?? rawM.memory ?? 48);
+        const latVal = Math.round(rawM.api_latency_ms ?? rawM.api_latency ?? 0);
+
+        const newPoint = { time: now, cpu: cpuVal, memory: memVal, latency: latVal, errors: 0 };
+        const updatedHistory = [...historyRef.current, newPoint].slice(-10);
+        historyRef.current = updatedHistory;
+
+        setMetrics({
+          ...rawM,
+          history: updatedHistory,
+        });
+      }
+
+      if (logsRes && logsRes.data) {
+        setLogs(logsRes.data?.logs || []);
+      }
+
       setIsMockMode(api.isMockMode());
 
-      if (incidentsRes.data) {
-        setIncidents(incidentsRes.data.incidents || []);
-        const currentActive = incidentsRes.data.active_incident || null;
+      if (incidentsRes && incidentsRes.data) {
+        const rawList = incidentsRes.data.incidents || [];
+        // Normalize backend incident fields so both real backend and mock work seamlessly
+        const normalizedList = rawList.map(item => ({
+          ...item,
+          incident_id: item.incident_id || item.id,
+          type: item.type || item.title || 'SYSTEM_INCIDENT',
+          root_cause: item.root_cause || item.description || item.title,
+          severity: (item.severity || 'HIGH').toUpperCase(),
+          status: (item.status || 'ACTIVE').toUpperCase(),
+        }));
+
+        setIncidents(normalizedList);
+
+        // Find active incident from the list (any incident with ACTIVE, INVESTIGATING, or not RESOLVED)
+        const currentActive = normalizedList.find(
+          i => i.status === 'ACTIVE' || i.status === 'INVESTIGATING' || (i.status !== 'RESOLVED' && i.status !== 'HUMAN_REJECTED')
+        ) || null;
+
         setActiveIncident(currentActive);
 
         // Auto open approval modal if active incident requires human approval
@@ -54,14 +94,14 @@ function App() {
     }
   }, []);
 
-  // Polling Effect
+  // Polling Effect (5 seconds interval for real-time polling)
   useEffect(() => {
     refreshSystemData();
 
     if (!isPolling) return;
     const timer = setInterval(() => {
       refreshSystemData();
-    }, 3000);
+    }, 5000);
 
     return () => clearInterval(timer);
   }, [isPolling, refreshSystemData]);
@@ -108,7 +148,7 @@ function App() {
     await refreshSystemData();
   };
 
-  const isOperational = health?.status === 'HEALTHY' && !activeIncident;
+  const isOperational = (health?.status === 'healthy' || health?.status === 'HEALTHY') && !activeIncident;
   const incidentToDisplay = selectedIncident || activeIncident;
 
   return (

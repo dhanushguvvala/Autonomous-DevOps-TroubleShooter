@@ -90,7 +90,7 @@ export const api = {
   /** Get System Health status */
   async getHealth() {
     return fetchWithFallback('/health', {}, () => ({
-      status: mockState.systemOperational ? 'HEALTHY' : 'INCIDENT_ACTIVE',
+      status: mockState.systemOperational ? 'healthy' : 'unhealthy',
       services: { ...mockState.health },
       updated_at: new Date().toLocaleTimeString(),
     }));
@@ -106,10 +106,10 @@ export const api = {
       const currentLatency = mockState.health.database === 'degraded' ? 850 : Math.max(50, mockState.metrics.api_latency + Math.floor(Math.random() * 10 - 5));
 
       return {
-        cpu: currentCpu,
-        memory: currentMemory,
-        disk: mockState.metrics.disk,
-        api_latency: currentLatency,
+        cpu_percent: currentCpu,
+        memory_percent: currentMemory,
+        disk_percent: mockState.metrics.disk,
+        api_latency_ms: currentLatency,
         timestamp: now,
         history: mockState.metrics.history,
       };
@@ -137,16 +137,25 @@ export const api = {
   /** Get Detailed Incident by ID */
   async getIncident(incidentId) {
     return fetchWithFallback(`/incidents/${incidentId}`, {}, () => {
-      if (mockState.activeIncident && mockState.activeIncident.incident_id === incidentId) {
+      if (mockState.activeIncident && (mockState.activeIncident.incident_id === incidentId || mockState.activeIncident.id === incidentId)) {
         return mockState.activeIncident;
       }
-      return mockState.incidentsHistory.find((i) => i.incident_id === incidentId) || null;
+      return mockState.incidentsHistory.find((i) => i.incident_id === incidentId || i.id === incidentId) || null;
     });
   },
 
   /** Failure Simulation Trigger */
   async simulateFailure(failureType) {
-    return fetchWithFallback(`/simulate/${failureType}`, { method: 'POST' }, () => {
+    // Map button key names to exact backend FastAPI routes
+    let endpoint = failureType;
+    if (failureType === 'backend') endpoint = 'backend_failure';
+    if (failureType === 'database') endpoint = 'database_failure';
+    if (failureType === 'cpu') endpoint = 'high_cpu';
+    if (failureType === 'memory') endpoint = 'high_memory';
+    if (failureType === 'slow-api') endpoint = 'slow_api';
+    if (failureType === 'worker') endpoint = 'worker_failure';
+
+    return fetchWithFallback(`/simulate/${endpoint}`, { method: 'POST' }, () => {
       const now = new Date();
       const timeStr = now.toLocaleTimeString();
 
@@ -198,7 +207,7 @@ export const api = {
         final_status: 'OPEN',
       };
 
-      if (failureType === 'backend' || failureType === 'simulate/backend') {
+      if (failureType === 'backend' || failureType === 'backend_failure') {
         mockState.health.backend = 'down';
         incident.type = 'backend_failure';
         incident.severity = 'HIGH';
@@ -213,7 +222,7 @@ export const api = {
         incident.risk_level = 'LOW';
         incident.recommended_action = 'RESTART_BACKEND';
         incident.human_approval_required = false;
-      } else if (failureType === 'database' || failureType === 'simulate/database') {
+      } else if (failureType === 'database' || failureType === 'database_failure') {
         mockState.health.database = 'down';
         incident.type = 'database_failure';
         incident.severity = 'CRITICAL';
@@ -228,7 +237,7 @@ export const api = {
         incident.risk_level = 'HIGH';
         incident.recommended_action = 'RESTORE_DB_CONNECTION';
         incident.human_approval_required = true;
-      } else if (failureType === 'cpu' || failureType === 'simulate/cpu') {
+      } else if (failureType === 'cpu' || failureType === 'high_cpu') {
         mockState.metrics.cpu = 95;
         incident.type = 'cpu_spike';
         incident.severity = 'MEDIUM';
@@ -242,7 +251,7 @@ export const api = {
         incident.risk_level = 'LOW';
         incident.recommended_action = 'STOP_CPU_TEST';
         incident.human_approval_required = false;
-      } else if (failureType === 'memory' || failureType === 'simulate/memory') {
+      } else if (failureType === 'memory' || failureType === 'high_memory') {
         mockState.metrics.memory = 94;
         incident.type = 'memory_leak';
         incident.severity = 'HIGH';
@@ -256,7 +265,7 @@ export const api = {
         incident.risk_level = 'MEDIUM';
         incident.recommended_action = 'STOP_MEMORY_TEST';
         incident.human_approval_required = false;
-      } else if (failureType === 'slow-api' || failureType === 'simulate/slow-api') {
+      } else if (failureType === 'slow-api' || failureType === 'slow_api') {
         mockState.metrics.api_latency = 950;
         mockState.health.backend = 'degraded';
         incident.type = 'slow_api';
@@ -271,7 +280,7 @@ export const api = {
         incident.risk_level = 'LOW';
         incident.recommended_action = 'REMOVE_API_DELAY';
         incident.human_approval_required = false;
-      } else if (failureType === 'worker' || failureType === 'simulate/worker') {
+      } else if (failureType === 'worker' || failureType === 'worker_failure') {
         mockState.health.worker = 'down';
         incident.type = 'worker_failure';
         incident.severity = 'HIGH';
@@ -302,7 +311,16 @@ export const api = {
 
   /** Execute Recovery Action */
   async executeRecovery(actionName, incidentId) {
-    return fetchWithFallback(`/recovery/${actionName}`, { method: 'POST', body: JSON.stringify({ incident_id: incidentId }) }, () => {
+    // Map recovery action names to backend routes
+    let endpoint = actionName;
+    if (actionName === 'RESTART_BACKEND' || actionName === 'restart_backend') endpoint = 'restart_backend';
+    if (actionName === 'RESTORE_DB_CONNECTION' || actionName === 'restore_database') endpoint = 'restore_database';
+    if (actionName === 'STOP_CPU_TEST' || actionName === 'stop_cpu_test') endpoint = 'stop_cpu_test';
+    if (actionName === 'STOP_MEMORY_TEST' || actionName === 'stop_memory_test') endpoint = 'stop_memory_test';
+    if (actionName === 'REMOVE_API_DELAY' || actionName === 'remove_api_delay') endpoint = 'remove_api_delay';
+    if (actionName === 'RESTART_WORKER' || actionName === 'restart_worker') endpoint = 'restart_worker';
+
+    return fetchWithFallback(`/recover/${endpoint}`, { method: 'POST', body: JSON.stringify({ incident_id: incidentId }) }, () => {
       if (mockState.activeIncident) {
         mockState.activeIncident.recovery_action = actionName;
         mockState.activeIncident.status = 'RECOVERY_EXECUTED';
@@ -342,7 +360,7 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ action: approvedAction }),
     }, () => {
-      if (mockState.activeIncident && mockState.activeIncident.incident_id === incidentId) {
+      if (mockState.activeIncident && (mockState.activeIncident.incident_id === incidentId || mockState.activeIncident.id === incidentId)) {
         mockState.activeIncident.human_approval = 'APPROVED';
         mockState.activeIncident.status = 'APPROVED';
         mockState.activeIncident.stepIndex = 6;
@@ -354,7 +372,7 @@ export const api = {
   /** Human Rejection Trigger */
   async rejectIncident(incidentId) {
     return fetchWithFallback(`/incidents/${incidentId}/reject`, { method: 'POST' }, () => {
-      if (mockState.activeIncident && mockState.activeIncident.incident_id === incidentId) {
+      if (mockState.activeIncident && (mockState.activeIncident.incident_id === incidentId || mockState.activeIncident.id === incidentId)) {
         mockState.activeIncident.human_approval = 'REJECTED';
         mockState.activeIncident.status = 'REJECTED';
         mockState.activeIncident.final_status = 'HUMAN_REJECTED';

@@ -7,22 +7,22 @@
 .log-toolbar {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
 .search-box {
   display: flex;
   align-items: center;
-  gap: 6px;
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: 6px;
   padding: 4px 10px;
+  gap: 6px;
 }
 
 .search-icon {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
 }
 
@@ -30,7 +30,7 @@
   background: transparent;
   border: none;
   color: var(--text-primary);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   outline: none;
   width: 140px;
 }
@@ -39,23 +39,24 @@
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
+  font-weight: 600;
   padding: 5px 10px;
   border-radius: 6px;
-  cursor: pointer;
+  outline: none;
 }
 
 .live-stream-btn {
-  border-color: var(--status-green);
-  color: var(--status-green);
+  border-color: rgba(16, 185, 129, 0.4) !important;
+  color: var(--status-green) !important;
 }
 
 .terminal-window {
-  background-color: #030712;
+  background-color: #04060a;
   border: 1px solid var(--border-color);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  font-family: var(--font-mono);
 }
 
 .terminal-topbar {
@@ -78,16 +79,13 @@
 .window-dot.green { background-color: #10b981; }
 
 .window-title {
-  font-size: 0.72rem;
-  font-family: var(--font-mono);
+  font-size: 0.7rem;
   color: var(--text-muted);
   margin-left: 8px;
 }
 
 .terminal-body {
-  padding: 16px;
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
+  padding: 14px 18px;
   max-height: 380px;
   overflow-y: auto;
   display: flex;
@@ -95,65 +93,60 @@
   gap: 6px;
 }
 
-.empty-logs {
-  color: var(--text-muted);
-  font-style: italic;
-  padding: 20px 0;
-}
-
 .log-line {
+  font-size: 0.75rem;
+  line-height: 1.5;
   display: flex;
-  align-items: baseline;
-  gap: 12px;
-  line-height: 1.4;
+  gap: 10px;
+  align-items: flex-start;
+  word-break: break-all;
 }
 
 .log-time {
   color: var(--text-muted);
-  font-size: 0.75rem;
-  min-width: 65px;
+  white-space: nowrap;
 }
 
 .log-level-tag {
   font-weight: 800;
-  font-size: 0.7rem;
-  padding: 1px 6px;
+  padding: 0 4px;
   border-radius: 3px;
-  min-width: 60px;
-  text-align: center;
+  font-size: 0.65rem;
+  white-space: nowrap;
 }
 
 .log-level-tag.level-info {
-  background-color: rgba(56, 189, 248, 0.15);
-  color: var(--accent-blue);
+  color: var(--accent-cyan);
+  background-color: rgba(56, 189, 248, 0.1);
 }
 
 .log-level-tag.level-warn {
-  background-color: rgba(245, 158, 11, 0.15);
   color: var(--status-yellow);
+  background-color: var(--status-yellow-bg);
 }
 
 .log-level-tag.level-error {
-  background-color: rgba(239, 68, 68, 0.15);
   color: var(--status-red);
+  background-color: var(--status-red-bg);
 }
 
 .log-level-tag.level-critical {
-  background-color: #ef4444;
   color: #fff;
-  box-shadow: var(--shadow-glow-red);
+  background-color: var(--status-red);
 }
 
 .log-svc {
-  color: var(--accent-cyan);
-  font-weight: 700;
+  color: var(--ai-purple);
+  white-space: nowrap;
 }
 
 .log-msg {
   color: var(--text-primary);
 }
 
-.log-line.level-critical .log-msg {
-  color: #fca5a5;
-  font-weight: 700;
+.empty-logs {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 20px;
 }

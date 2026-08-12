@@ -7,14 +7,41 @@ function LogViewer({ logs = [] }) {
   const [isPaused, setIsPaused] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const defaultLogs = logs && logs.length > 0 ? logs : [
+  // Normalize log entries (handles stringified JSON log lines from FastAPI app.log)
+  const parsedLogs = (logs && logs.length > 0 ? logs : []).map((item) => {
+    if (typeof item === 'string') {
+      try {
+        const obj = JSON.parse(item);
+        return {
+          timestamp: obj.timestamp || obj.time || new Date().toLocaleTimeString(),
+          level: (obj.level || obj.levelname || 'INFO').toUpperCase(),
+          service: obj.service || 'backend',
+          message: obj.message || obj.event || item,
+        };
+      } catch (e) {
+        return {
+          timestamp: new Date().toLocaleTimeString(),
+          level: item.includes('ERROR') ? 'ERROR' : item.includes('WARN') ? 'WARN' : 'INFO',
+          service: 'backend',
+          message: item,
+        };
+      }
+    }
+    return {
+      timestamp: item.timestamp || new Date().toLocaleTimeString(),
+      level: (item.level || 'INFO').toUpperCase(),
+      service: item.service || 'backend',
+      message: item.message || '',
+    };
+  });
+
+  const defaultLogs = parsedLogs.length > 0 ? parsedLogs : [
     { timestamp: '14:32:00', level: 'INFO', service: 'api-gateway', message: 'HTTP GET /api/v1/orders 200 OK (34ms)' },
     { timestamp: '14:32:04', level: 'INFO', service: 'payment-service', message: 'Request received for transaction #TX-90214' },
     { timestamp: '14:32:07', level: 'WARN', service: 'postgres-db', message: 'Database connection pool utilization at 87% (87/100)' },
     { timestamp: '14:32:09', level: 'ERROR', service: 'payment-service', message: 'Connection timeout on PostgreSQL primary pool socket' },
     { timestamp: '14:32:11', level: 'ERROR', service: 'payment-service', message: 'Retry limit (3/3) exceeded. Aborting transaction' },
     { timestamp: '14:32:14', level: 'CRITICAL', service: 'ShopFlow-Monitor', message: 'CRITICAL: Payment transaction processing failure cascade detected' },
-    { timestamp: '14:32:18', level: 'INFO', service: 'RCA-Agent', message: 'Autonomous RCA Agent correlates log trace #TR-8819 -> Connection pool exhaustion' },
   ];
 
   const filteredLogs = defaultLogs.filter(item => {

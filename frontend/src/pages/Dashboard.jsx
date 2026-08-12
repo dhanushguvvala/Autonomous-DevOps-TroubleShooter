@@ -17,7 +17,8 @@ function Dashboard({
   onSelectIncident,
   isMockMode
 }) {
-  const isHealthy = health?.status === 'HEALTHY' && !activeIncident;
+  const isHealthy = health?.status === 'healthy' || (health?.status === 'HEALTHY' && !activeIncident);
+  const latencyVal = Math.round(metrics?.api_latency_ms ?? metrics?.api_latency ?? 0);
 
   return (
     <div className="dashboard-page">
@@ -44,7 +45,7 @@ function Dashboard({
           <div className="kpi-top">
             <span className="kpi-label">ACTIVE INCIDENTS</span>
             <span className={`kpi-trend ${activeIncident ? 'trend-down' : 'trend-neutral'}`}>
-              {activeIncident ? '1 Critical' : '0 Active'}
+              {activeIncident ? '1 Active' : '0 Active'}
             </span>
           </div>
           <div className="kpi-value">{activeIncident ? '01' : '00'}</div>
@@ -56,7 +57,7 @@ function Dashboard({
             <span className="kpi-label">AVERAGE LATENCY</span>
             <span className="kpi-trend trend-up">↓ 12 ms</span>
           </div>
-          <div className="kpi-value">{metrics?.api_latency || 120}<span className="kpi-unit">ms</span></div>
+          <div className="kpi-value">{latencyVal}<span className="kpi-unit">ms</span></div>
           <span className="kpi-sub">P99 Gateway Latency</span>
         </div>
 
