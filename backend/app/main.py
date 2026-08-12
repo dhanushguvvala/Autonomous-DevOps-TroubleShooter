@@ -92,6 +92,13 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+# ==================================================
+# AI AGENT ROUTER — minimal integration (do not remove)
+# ==================================================
+
+from agents.router import router as agent_router  # noqa: E402
+app.include_router(agent_router)
+
 
 # ==================================================
 # MIDDLEWARE — ARTIFICIAL API DELAY

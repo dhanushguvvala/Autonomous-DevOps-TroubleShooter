@@ -1,0 +1,15 @@
+# agents/requirements.txt
+# Dependencies for the AI Agent module only.
+# Do NOT modify backend/requirements.txt.
+# All packages listed here are NOT already present in backend/requirements.txt.
+
+# Async HTTP client (observation and recovery calls to the backend)
+httpx>=0.27.0
+
+# xAI / OpenAI-compatible Python SDK (Grok LLM calls)
+openai>=1.35.0
+
+# Already in backend/requirements.txt — listed for completeness in this module:
+# python-dotenv>=1.0.0
+# pydantic>=2.0.0
+# fastapi>=0.100.0
