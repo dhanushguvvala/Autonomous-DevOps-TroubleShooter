@@ -1,0 +1,152 @@
+.log-viewer-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.log-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 4px 10px;
+  gap: 6px;
+}
+
+.search-icon {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.log-search-input {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 0.75rem;
+  outline: none;
+  width: 140px;
+}
+
+.log-level-select {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 6px;
+  outline: none;
+}
+
+.live-stream-btn {
+  border-color: rgba(16, 185, 129, 0.4) !important;
+  color: var(--status-green) !important;
+}
+
+.terminal-window {
+  background-color: #04060a;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: var(--font-mono);
+}
+
+.terminal-topbar {
+  background-color: #0b0f19;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.window-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.window-dot.red { background-color: #ef4444; }
+.window-dot.yellow { background-color: #f59e0b; }
+.window-dot.green { background-color: #10b981; }
+
+.window-title {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-left: 8px;
+}
+
+.terminal-body {
+  padding: 14px 18px;
+  max-height: 380px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.log-line {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  word-break: break-all;
+}
+
+.log-time {
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.log-level-tag {
+  font-weight: 800;
+  padding: 0 4px;
+  border-radius: 3px;
+  font-size: 0.65rem;
+  white-space: nowrap;
+}
+
+.log-level-tag.level-info {
+  color: var(--accent-cyan);
+  background-color: rgba(56, 189, 248, 0.1);
+}
+
+.log-level-tag.level-warn {
+  color: var(--status-yellow);
+  background-color: var(--status-yellow-bg);
+}
+
+.log-level-tag.level-error {
+  color: var(--status-red);
+  background-color: var(--status-red-bg);
+}
+
+.log-level-tag.level-critical {
+  color: #fff;
+  background-color: var(--status-red);
+}
+
+.log-svc {
+  color: var(--ai-purple);
+  white-space: nowrap;
+}
+
+.log-msg {
+  color: var(--text-primary);
+}
+
+.empty-logs {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 20px;
+}

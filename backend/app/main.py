@@ -2,6 +2,7 @@ import asyncio
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.state import app_state
 from app.metrics import get_system_metrics
@@ -90,6 +91,26 @@ app = FastAPI(
     ),
     version="2.0.0",
     lifespan=lifespan
+)
+
+# ==================================================
+# CORS MIDDLEWARE (Ganesh frontend integration)
+# Allows the React/Vite frontend on common dev ports.
+# ==================================================
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5175",
+        "http://127.0.0.1:5175",
+        "http://localhost:5174",
+        "http://127.0.0.1:5174",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # ==================================================
@@ -206,6 +227,18 @@ def logs():
             for line in lines
             if line.strip()
         ]
+    }
+
+
+# ==================================================
+# INCIDENTS (Ganesh frontend integration)
+# ==================================================
+
+@app.get("/incidents", tags=["Monitoring"])
+async def get_incidents():
+    """Return the current incidents list from app state."""
+    return {
+        "incidents": app_state.incidents
     }
 
 

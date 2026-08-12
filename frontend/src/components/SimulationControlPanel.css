@@ -1,0 +1,117 @@
+.simulation-control-panel {
+  border: 1px dashed var(--accent-blue);
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.04) 0%, var(--bg-card) 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sim-icon {
+  font-size: 1.5rem;
+}
+
+.simulation-workflow-loop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px 16px;
+  overflow-x: auto;
+}
+
+.loop-step {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.step-num {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: var(--accent-blue-bg);
+  color: var(--accent-blue);
+  font-size: 0.65rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-text {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.step-success .step-num {
+  background-color: var(--status-green-bg);
+  color: var(--status-green);
+}
+
+.step-success .step-text {
+  color: var(--status-green);
+}
+
+.loop-arrow {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.simulation-buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 1100px) {
+  .simulation-buttons-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .simulation-buttons-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sim-btn {
+  padding: 10px 14px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border-radius: 6px;
+  justify-content: flex-start;
+  transition: all 0.2s ease;
+}
+
+.sim-btn.danger:hover {
+  background-color: rgba(239, 68, 68, 0.15);
+  border-color: var(--status-red);
+  color: var(--status-red);
+}
+
+.sim-btn.warning:hover {
+  background-color: rgba(245, 158, 11, 0.15);
+  border-color: var(--status-yellow);
+  color: var(--status-yellow);
+}
+
+.reset-btn {
+  grid-column: span 2;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .reset-btn {
+    grid-column: span 1;
+  }
+}

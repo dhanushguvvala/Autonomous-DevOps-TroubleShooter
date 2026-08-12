@@ -1,0 +1,148 @@
+.incident-page {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.incident-page-empty {
+  padding: 60px 28px;
+  display: flex;
+  justify-content: center;
+}
+
+.empty-card {
+  text-align: center;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.incident-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.id-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.inc-id {
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--accent-blue);
+}
+
+.inc-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.inc-time {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.incident-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 1100px) {
+  .incident-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid-left {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.grid-right {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.recovery-action-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.recovery-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.action-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-secondary);
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+.action-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+.action-code {
+  font-family: var(--font-mono);
+  font-weight: 800;
+  color: var(--status-yellow);
+}
+
+.status-note {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.approval-req-tag {
+  color: var(--status-red);
+}
+
+.auto-recovery-tag {
+  color: var(--status-green);
+}
+
+.action-exec-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 0.95rem;
+}
+
+.resolved-banner {
+  background-color: var(--status-green-bg);
+  border: 1px solid var(--status-green);
+  color: var(--status-green);
+  padding: 12px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+}

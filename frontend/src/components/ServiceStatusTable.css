@@ -1,0 +1,74 @@
+.service-status-table-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.services-grid-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.services-grid-table th,
+.services-grid-table td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.services-grid-table th {
+  background-color: var(--bg-secondary);
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.service-row {
+  transition: background-color 0.2s ease;
+}
+
+.service-row:hover {
+  background-color: var(--bg-card-hover);
+}
+
+.service-row.row-danger {
+  background-color: rgba(239, 68, 68, 0.05);
+}
+
+.service-row.row-warning {
+  background-color: rgba(245, 158, 11, 0.05);
+}
+
+.svc-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.svc-title {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.mono-cell {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.err-text {
+  color: var(--status-red);
+  font-weight: 800;
+}
+
+.inspect-btn {
+  padding: 3px 10px;
+  font-size: 0.72rem;
+}
