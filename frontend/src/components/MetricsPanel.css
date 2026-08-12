@@ -1,0 +1,92 @@
+.metrics-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.live-indicator-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--status-green-bg);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: var(--status-green);
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.chart-control-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.metric-toggle-group,
+.timeframe-group {
+  display: flex;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 2px;
+}
+
+.toggle-btn,
+.tf-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-btn:hover,
+.tf-btn:hover {
+  color: var(--text-primary);
+}
+
+.toggle-btn.active,
+.tf-btn.active {
+  background-color: var(--accent-blue-bg);
+  color: var(--accent-blue);
+  font-weight: 700;
+}
+
+.chart-wrapper {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chart-title-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chart-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.chart-timeframe {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}

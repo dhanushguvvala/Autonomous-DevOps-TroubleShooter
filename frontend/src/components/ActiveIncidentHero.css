@@ -1,0 +1,131 @@
+.active-incident-hero {
+  transition: all 0.3s ease;
+}
+
+.active-incident-hero.healthy {
+  border-left: 4px solid var(--status-green);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, var(--bg-card) 100%);
+}
+
+.hero-healthy-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.healthy-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--status-green);
+  letter-spacing: 0.08em;
+}
+
+.healthy-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.healthy-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.active-incident-hero.active {
+  border: 1px solid var(--status-red);
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, var(--bg-card) 100%);
+  box-shadow: var(--shadow-glow-red);
+}
+
+.incident-hero-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(239, 68, 68, 0.2);
+  margin-bottom: 16px;
+}
+
+.hero-status-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.title-alert {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--status-red);
+  letter-spacing: 0.08em;
+}
+
+.hero-badges {
+  display: flex;
+  gap: 8px;
+}
+
+.hero-body-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+@media (max-width: 800px) {
+  .hero-body-grid {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.hero-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.incident-id-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.incident-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.incident-cause {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.incident-meta-row {
+  display: flex;
+  gap: 20px;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.incident-meta-row strong {
+  color: var(--text-primary);
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+}
+
+.hero-action-btn {
+  padding: 12px 24px;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+}

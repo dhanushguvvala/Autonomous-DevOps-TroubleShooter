@@ -1,0 +1,145 @@
+.dashboard-page {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.overview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.overview-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.overview-sub {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.kpi-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 1100px) {
+  .kpi-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .kpi-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.kpi-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.kpi-card:hover {
+  border-color: var(--accent-blue);
+  box-shadow: var(--shadow-glow-blue);
+}
+
+.kpi-card.kpi-alert {
+  border-color: var(--status-red);
+  background-color: rgba(239, 68, 68, 0.05);
+  box-shadow: var(--shadow-glow-red);
+}
+
+.kpi-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.kpi-label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+}
+
+.kpi-trend {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.kpi-trend.trend-up {
+  color: var(--status-green);
+  background-color: var(--status-green-bg);
+}
+
+.kpi-trend.trend-down {
+  color: var(--status-red);
+  background-color: var(--status-red-bg);
+}
+
+.kpi-trend.trend-neutral {
+  color: var(--text-muted);
+  background-color: rgba(100, 116, 139, 0.1);
+}
+
+.kpi-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.kpi-unit {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-left: 2px;
+}
+
+.kpi-sub {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 1200px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid-col-left {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.grid-col-right {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}

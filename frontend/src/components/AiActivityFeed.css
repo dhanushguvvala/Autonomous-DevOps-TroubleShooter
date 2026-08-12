@@ -1,0 +1,68 @@
+.ai-activity-feed-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.04) 0%, var(--bg-card) 100%);
+}
+
+.ai-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sparkle-icon {
+  font-size: 1.3rem;
+}
+
+.activity-events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.activity-event-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.evt-icon {
+  font-size: 1rem;
+}
+
+.evt-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.evt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.evt-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--ai-purple);
+  letter-spacing: 0.05em;
+}
+
+.evt-time {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.evt-text {
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}

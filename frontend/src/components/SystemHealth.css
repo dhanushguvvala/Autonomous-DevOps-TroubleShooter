@@ -1,0 +1,99 @@
+.system-health-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+}
+
+.panel-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+}
+
+.panel-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.health-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 900px) {
+  .health-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.health-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.health-card.healthy {
+  border-left: 4px solid var(--status-green);
+}
+
+.health-card.degraded {
+  border-left: 4px solid var(--status-yellow);
+  background-color: rgba(245, 158, 11, 0.05);
+}
+
+.health-card.down {
+  border-left: 4px solid var(--status-red);
+  background-color: rgba(239, 68, 68, 0.08);
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.15);
+}
+
+.health-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.service-name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+}
+
+.service-status-text {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.health-card.healthy .service-status-text {
+  color: var(--status-green);
+}
+
+.health-card.degraded .service-status-text {
+  color: var(--status-yellow);
+}
+
+.health-card.down .service-status-text {
+  color: var(--status-red);
+}
+
+.service-detail {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}

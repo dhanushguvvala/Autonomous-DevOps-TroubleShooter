@@ -1,0 +1,63 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 28px;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.nav-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.nav-tab:hover {
+  color: var(--text-primary);
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.nav-tab.active {
+  color: var(--accent-blue);
+  border-bottom-color: var(--accent-blue);
+  background-color: rgba(56, 189, 248, 0.05);
+}
+
+.nav-tab.alert {
+  color: var(--status-red);
+}
+
+.nav-tab.alert.active {
+  border-bottom-color: var(--status-red);
+  background-color: rgba(239, 68, 68, 0.08);
+}
+
+.nav-badge-count {
+  background-color: var(--status-red);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 10px;
+}
+
+.simulator-toggle-btn {
+  font-size: 0.8rem;
+  padding: 6px 14px;
+}

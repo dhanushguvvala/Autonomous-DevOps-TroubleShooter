@@ -1,0 +1,92 @@
+.replanning-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px dashed var(--accent-cyan);
+}
+
+.replanning-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.attempt-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.attempt-card.failed {
+  border-left: 4px solid var(--status-red);
+}
+
+.attempt-card.success {
+  border-left: 4px solid var(--status-green);
+}
+
+.attempt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.attempt-title {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+}
+
+.attempt-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.8rem;
+}
+
+.attempt-detail {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.detail-label {
+  color: var(--text-muted);
+}
+
+.detail-code {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--accent-blue);
+}
+
+.detail-text {
+  color: var(--text-secondary);
+}
+
+.reinvestigation-box {
+  margin-top: 6px;
+  padding: 8px 12px;
+  background-color: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.reinv-tag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--accent-cyan);
+}
+
+.reinv-text {
+  font-size: 0.75rem;
+  color: var(--text-primary);
+}

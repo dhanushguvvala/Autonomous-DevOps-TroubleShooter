@@ -1,0 +1,41 @@
+.evidence-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.empty-evidence {
+  padding: 16px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.evidence-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.evidence-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+.evidence-check {
+  color: var(--status-green);
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.evidence-text {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}

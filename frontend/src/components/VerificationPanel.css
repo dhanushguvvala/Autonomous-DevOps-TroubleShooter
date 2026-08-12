@@ -1,0 +1,82 @@
+.verification-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.verification-panel.passed {
+  border-left: 4px solid var(--status-green);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, var(--bg-card) 100%);
+}
+
+.verification-panel.failed {
+  border-left: 4px solid var(--status-red);
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.05) 0%, var(--bg-card) 100%);
+}
+
+.verification-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.status-hero-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-text {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.verification-panel.passed .status-text {
+  color: var(--status-green);
+}
+
+.verification-panel.failed .status-text {
+  color: var(--status-red);
+}
+
+.status-summary-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.verification-checks-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 6px;
+}
+
+@media (max-width: 900px) {
+  .verification-checks-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.check-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.check-name {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.check-value {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--status-green);
+  font-family: var(--font-mono);
+}
